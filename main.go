@@ -30,6 +30,7 @@ func main() {
 	// endpoint user
 	r.GET("/users", ctl.GetAll)
 	r.GET("/users/:id", ctl.GetByID)
+	r.GET("/seacrh_users", ctl.SearchByName)
 	r.POST("/users", ctl.Store)
 	r.PUT("/users", ctl.Update)
 	r.DELETE("/users", ctl.Delete)

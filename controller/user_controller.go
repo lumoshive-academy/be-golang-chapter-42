@@ -19,6 +19,9 @@ func NewControllerUser() *Controller {
 // @Tags users
 // @Accept  json
 // @Produce  json
+// @Success 200 {object} utils.Response "All User"
+// @Failure 404 {object} utils.Response "User not found"
+// @Failure 500 {object} utils.Response "Internal server error"
 // @Router  /users [get]
 func (c *Controller) GetAll(ctx *gin.Context) {
 
@@ -107,7 +110,7 @@ func (c *Controller) Delete(ctx *gin.Context) {
 // @Tags users
 // @Param name query string false "User Name"
 // @Param Authorization header string true "Bearer token"
-// @Router /users [get]
+// @Router /seacrh_users [get]
 func (c *Controller) SearchByName(ctx *gin.Context) {
 	name := ctx.Query("name")
 	// Dummy implementation

@@ -24,6 +24,31 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/seacrh_users": {
+            "get": {
+                "description": "Get a list of users that match the provided name.",
+                "tags": [
+                    "users"
+                ],
+                "summary": "Get users by name",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User Name",
+                        "name": "name",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Bearer token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {}
+            }
+        },
         "/upload": {
             "post": {
                 "description": "Upload a file to the server.",
@@ -64,27 +89,37 @@ const docTemplate = `{
         },
         "/users": {
             "get": {
-                "description": "Get a list of users that match the provided name.",
+                "description": "Get details of all registered users.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
                 "tags": [
                     "users"
                 ],
-                "summary": "Get users by name",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "User Name",
-                        "name": "name",
-                        "in": "query"
+                "summary": "Get user all",
+                "responses": {
+                    "200": {
+                        "description": "All User",
+                        "schema": {
+                            "$ref": "#/definitions/utils.Response"
+                        }
                     },
-                    {
-                        "type": "string",
-                        "description": "Bearer token",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
+                    "404": {
+                        "description": "User not found",
+                        "schema": {
+                            "$ref": "#/definitions/utils.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/utils.Response"
+                        }
                     }
-                ],
-                "responses": {}
+                }
             },
             "post": {
                 "description": "Add a new user with the provided JSON data.",
@@ -217,6 +252,23 @@ const docTemplate = `{
                 },
                 "phone": {
                     "type": "string"
+                }
+            }
+        },
+        "utils.Response": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/model.User"
+                },
+                "error": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
                 }
             }
         }
