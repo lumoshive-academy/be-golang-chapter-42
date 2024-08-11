@@ -35,6 +35,7 @@ func (c *Controller) GetAll(ctx *gin.Context) {
 // @Tags users
 // @Accept  json
 // @Produce  json
+// @Security BasicAuth
 // @Param   id     path     int     true  "User ID"
 // @Param Authorization header string true "Bearer token"
 // @Success 200 {object} utils.ResponseWithData "All User"
@@ -57,6 +58,7 @@ func (c *Controller) GetByID(ctx *gin.Context) {
 // @Summary Add a new user
 // @Description Add a new user with the provided JSON data.
 // @Tags users
+// @Security BasicAuth
 // @Param user body model.User true "User data"
 // @Param Authorization header string true "Bearer token"
 // @Success 201 {object} utils.Response "All User"
@@ -77,6 +79,7 @@ func (c *Controller) Store(ctx *gin.Context) {
 // @Summary Update user by ID
 // @Description Update the details of a user by their ID.
 // @Tags users
+// @Security BasicAuth
 // @Param id path int true "User ID"
 // @Param user body model.User true "User object that needs to be updated"
 // @Success 200 {object} utils.Response "All User"
@@ -98,6 +101,7 @@ func (c *Controller) Update(ctx *gin.Context) {
 // @Summary Delete user by ID
 // @Description Delete a user by their ID.
 // @Tags users
+// @Security BasicAuth
 // @Param id path int true "User ID"
 // @Success 204 "No Content"
 // @Failure 404 {object} map[string]string
@@ -120,6 +124,7 @@ func (c *Controller) Delete(ctx *gin.Context) {
 // @Summary Get users by name
 // @Description Get a list of users that match the provided name.
 // @Tags users
+// @Security BasicAuth
 // @Param name query string false "User Name"
 // @Param Authorization header string true "Bearer token"
 // @Success 200 {object} utils.ResponseWithData "All User"
@@ -140,6 +145,7 @@ func (c *Controller) SearchByName(ctx *gin.Context) {
 // @Summary Upload a file
 // @Description Upload a file to the server.
 // @Tags files
+// @Security BasicAuth
 // @Param file formData file true "File to upload"
 // @Success 200 {object} utils.Response "All User"
 // @Failure 404 {object} utils.Response "User not found"

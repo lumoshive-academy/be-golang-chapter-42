@@ -22,6 +22,10 @@ import (
 // @host localhost:8080
 // @schemes http
 // @BasePath /
+// @securityDefinitions.apikey BasixAuth
+// @in header
+// @name Authorization
+
 func main() {
 	r := gin.Default()
 
