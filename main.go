@@ -20,15 +20,19 @@ import (
 // @license.name Lumoshive Academy
 // @license.url https://academy.lumoshive.com
 // @host localhost:8080
-// @BasePath /
+// @schemes http
+// @BasePath /api/v1
 func main() {
 	r := gin.Default()
 
 	ctl := controller.NewControllerUser()
 
-	// Swagger endpoint
+	// endpoint user
+	r.GET("/users", ctl.GetAll)
+	
 	r.GET("/users/:id", ctl.GetByID)
 
+	// Swagger endpoint
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	r.Run()
