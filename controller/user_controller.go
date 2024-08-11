@@ -19,7 +19,7 @@ func NewControllerUser() *Controller {
 // @Tags users
 // @Accept  json
 // @Produce  json
-// @Success 200 {object} utils.Response "All User"
+// @Success 200 {object} utils.ResponseWithData "All User"
 // @Failure 404 {object} utils.Response "User not found"
 // @Failure 500 {object} utils.Response "Internal server error"
 // @Router  /users [get]
@@ -37,6 +37,9 @@ func (c *Controller) GetAll(ctx *gin.Context) {
 // @Produce  json
 // @Param   id     path     int     true  "User ID"
 // @Param Authorization header string true "Bearer token"
+// @Success 200 {object} utils.ResponseWithData "All User"
+// @Failure 404 {object} utils.Response "User not found"
+// @Failure 500 {object} utils.Response "Internal server error"
 // @Router  /users/{id} [get]
 func (c *Controller) GetByID(ctx *gin.Context) {
 	id := ctx.Param("id")
@@ -56,6 +59,9 @@ func (c *Controller) GetByID(ctx *gin.Context) {
 // @Tags users
 // @Param user body model.User true "User data"
 // @Param Authorization header string true "Bearer token"
+// @Success 201 {object} utils.Response "All User"
+// @Failure 404 {object} utils.Response "User not found"
+// @Failure 500 {object} utils.Response "Internal server error"
 // @Router /users [post]
 func (c *Controller) Store(ctx *gin.Context) {
 	var newUser model.User
@@ -73,6 +79,9 @@ func (c *Controller) Store(ctx *gin.Context) {
 // @Tags users
 // @Param id path int true "User ID"
 // @Param user body model.User true "User object that needs to be updated"
+// @Success 200 {object} utils.Response "All User"
+// @Failure 404 {object} utils.Response "User not found"
+// @Failure 500 {object} utils.Response "Internal server error"
 // @Router /users/{id} [put]
 func (c *Controller) Update(ctx *gin.Context) {
 	id := ctx.Param("id")
@@ -92,6 +101,9 @@ func (c *Controller) Update(ctx *gin.Context) {
 // @Param id path int true "User ID"
 // @Success 204 "No Content"
 // @Failure 404 {object} map[string]string
+// @Success 200 {object} utils.Response "All User"
+// @Failure 404 {object} utils.Response "User not found"
+// @Failure 500 {object} utils.Response "Internal server error"
 // @Router /users/{id} [delete]
 func (c *Controller) Delete(ctx *gin.Context) {
 	id := ctx.Param("id")
@@ -110,6 +122,9 @@ func (c *Controller) Delete(ctx *gin.Context) {
 // @Tags users
 // @Param name query string false "User Name"
 // @Param Authorization header string true "Bearer token"
+// @Success 200 {object} utils.ResponseWithData "All User"
+// @Failure 404 {object} utils.Response "User not found"
+// @Failure 500 {object} utils.Response "Internal server error"
 // @Router /seacrh_users [get]
 func (c *Controller) SearchByName(ctx *gin.Context) {
 	name := ctx.Query("name")
@@ -126,8 +141,9 @@ func (c *Controller) SearchByName(ctx *gin.Context) {
 // @Description Upload a file to the server.
 // @Tags files
 // @Param file formData file true "File to upload"
-// @Success 200 {object} map[string]string
-// @Failure 400 {object} map[string]string
+// @Success 200 {object} utils.Response "All User"
+// @Failure 404 {object} utils.Response "User not found"
+// @Failure 500 {object} utils.Response "Internal server error"
 // @Router /upload [post]
 func (c *Controller) UploadPhoto(ctx *gin.Context) {
 	file, err := ctx.FormFile("file")
