@@ -21,7 +21,7 @@ import (
 // @license.url https://academy.lumoshive.com
 // @host localhost:8080
 // @schemes http
-// @BasePath /api/v1
+// @BasePath /
 func main() {
 	r := gin.Default()
 
@@ -29,8 +29,11 @@ func main() {
 
 	// endpoint user
 	r.GET("/users", ctl.GetAll)
-	
 	r.GET("/users/:id", ctl.GetByID)
+	r.POST("/users", ctl.Store)
+	r.PUT("/users", ctl.Update)
+	r.DELETE("/users", ctl.Delete)
+	r.POST("/upload", ctl.UploadPhoto)
 
 	// Swagger endpoint
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))

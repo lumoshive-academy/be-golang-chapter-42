@@ -41,9 +41,9 @@ func (c *Controller) GetByID(ctx *gin.Context) {
 
 	// Dummy implementation for example
 	if id == "1" {
-		ctx.JSON(200, gin.H{"status_code": 200, "message": "show data user with id"})
+		ctx.JSON(200, gin.H{"status_code": 200, "message": "show data user by id"})
 	} else {
-		ctx.JSON(404, gin.H{"status_code": 404, "error": "User not found"})
+		ctx.JSON(404, gin.H{"status_code": 404, "message": "User not found"})
 	}
 }
 
@@ -61,7 +61,78 @@ func (c *Controller) Store(ctx *gin.Context) {
 		return
 	}
 
+	ctx.JSON(201, gin.H{"status_code": 201, "message": "success store data user"})
+}
+
+// update user endpoint
+// @Summary Update user by ID
+// @Description Update the details of a user by their ID.
+// @Tags users
+// @Param id path int true "User ID"
+// @Param user body model.User true "User object that needs to be updated"
+// @Router /users/{id} [put]
+func (c *Controller) Update(ctx *gin.Context) {
+	id := ctx.Param("id")
+
 	// Dummy implementation
-	newUser.Id = 3
-	ctx.JSON(201, newUser)
+	if id == "" {
+		ctx.JSON(400, gin.H{"status_code": 400, "message": "Invalid updated user"})
+	} else {
+		ctx.JSON(200, gin.H{"status_code": 200, "message": "Success updated data user"})
+	}
+}
+
+// delete user endpoint
+// @Summary Delete user by ID
+// @Description Delete a user by their ID.
+// @Tags users
+// @Param id path int true "User ID"
+// @Success 204 "No Content"
+// @Failure 404 {object} map[string]string
+// @Router /users/{id} [delete]
+func (c *Controller) Delete(ctx *gin.Context) {
+	id := ctx.Param("id")
+
+	// Dummy implementation:
+	if id == "1" {
+		ctx.JSON(200, gin.H{"status_code": 200, "message": "Success deleted data user"})
+	} else {
+		ctx.JSON(400, gin.H{"status_code": 400, "message": "Invalid deleted user"})
+	}
+}
+
+// search data user by name endpoint
+// @Summary Get users by name
+// @Description Get a list of users that match the provided name.
+// @Tags users
+// @Param name query string false "User Name"
+// @Param Authorization header string true "Bearer token"
+// @Router /users [get]
+func (c *Controller) SearchByName(ctx *gin.Context) {
+	name := ctx.Query("name")
+	// Dummy implementation
+	if name == "" {
+		ctx.JSON(404, gin.H{"status_code": 404, "message": "User not found"})
+	} else {
+		ctx.JSON(200, gin.H{"status_code": 200, "message": "show data user by name"})
+	}
+}
+
+// upload photo user endpoint
+// @Summary Upload a file
+// @Description Upload a file to the server.
+// @Tags files
+// @Param file formData file true "File to upload"
+// @Success 200 {object} map[string]string
+// @Failure 400 {object} map[string]string
+// @Router /upload [post]
+func (c *Controller) UploadPhoto(ctx *gin.Context) {
+	file, err := ctx.FormFile("file")
+	if err != nil {
+		ctx.JSON(400, gin.H{"status_code": 400, "error": "Failed to upload file"})
+		return
+	}
+	// Save the file
+	ctx.SaveUploadedFile(file, file.Filename)
+	ctx.JSON(200, gin.H{"status_code": 200, "message": "File uploaded successfully", "filename": file.Filename})
 }
