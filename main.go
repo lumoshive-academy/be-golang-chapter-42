@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/go-chi/chi/middleware"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 
@@ -31,6 +32,7 @@ func main() {
 
 	ctl := controller.NewControllerUser()
 
+	r.Use(middleware.BasicAuth())
 	// endpoint user
 	r.GET("/users", ctl.GetAll)
 	r.GET("/users/:id", ctl.GetByID)
